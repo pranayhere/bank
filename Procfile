@@ -1,1 +1,1 @@
-web: java -jar build/libs/heroku-gradle-spring-boot.jar
+java $JAVA_OPTS -jar app.jar

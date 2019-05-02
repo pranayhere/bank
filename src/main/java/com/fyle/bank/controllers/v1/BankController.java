@@ -2,7 +2,6 @@ package com.fyle.bank.controllers.v1;
 
 import java.util.List;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -38,6 +37,7 @@ public class BankController {
         }
     }
 
+    
     // http://localhost:8080/api/v1/branch/ABHY00650028989898989
     @GetMapping("/branch/{ifsc}")
     public Branch getBranch(@PathVariable("ifsc") @NotBlank @Size(max = 11) String ifsc) {
