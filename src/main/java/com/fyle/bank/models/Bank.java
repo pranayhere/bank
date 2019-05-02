@@ -24,5 +24,5 @@ public class Bank {
     private String name;
 
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = "bank")
-    private List<Branch> branches = new ArrayList<>(); 
+    private List<Branch> branches = new ArrayList<>();
 }

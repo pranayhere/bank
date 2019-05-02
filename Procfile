@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -Dserver.port=80 -jar build/libs/heroku-gradle-spring-boot.jar
+web: java -jar build/libs/heroku-gradle-spring-boot.jar
