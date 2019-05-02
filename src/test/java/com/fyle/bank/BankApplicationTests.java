@@ -11,6 +11,6 @@ public class BankApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		return;
 	}
-
 }
