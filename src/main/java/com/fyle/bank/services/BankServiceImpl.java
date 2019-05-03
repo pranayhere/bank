@@ -33,18 +33,17 @@ public class BankServiceImpl implements BankService {
     }
 
     @Override
-    public Page<BankBranches> getBranchesByCity(@NotBlank String name, @NotBlank String city, Pageable pageable) {
-        Page<BankBranches> bankBranches = bankBranchesRepository.findAllByBankNameAndCity(name, city, pageable);
-
-        if (bankBranches.isEmpty())
-            throw new RuntimeException("No Branches for the Bank in the given city");
-        
-        return bankBranches;
+    public Page<BankBranches> getPaginatedBranchesByCity(@NotBlank String name, @NotBlank String city, Pageable pageable) {
+        return getBranchesByCity(name, city, pageable);
     }
 
     @Override
-    public List<BankBranches> getBranchesByCity(String name, String city) {
-        List<BankBranches> bankBranches = bankBranchesRepository.findAllByBankNameAndCity(name, city);
+    public List<BankBranches> getAllBranchesByCity(@NotBlank String name, @NotBlank String city) {
+        return getBranchesByCity(name, city, null).getContent();
+    }
+
+    private Page<BankBranches> getBranchesByCity(String name, String city, Pageable pageable) {
+        Page<BankBranches> bankBranches = bankBranchesRepository.findAllByBankNameAndCity(name, city, pageable);
 
         if (bankBranches.isEmpty())
             throw new RuntimeException("No Branches for the Bank in the given city");

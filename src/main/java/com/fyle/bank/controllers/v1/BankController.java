@@ -2,6 +2,7 @@ package com.fyle.bank.controllers.v1;
 
 import java.util.List;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -29,15 +30,15 @@ public class BankController {
     @Autowired
     BankService bankService;
 
-    // http://localhost:5000/api/v1/bank/branch?bankname=ABHYUDAYA%20COOPERATIVE%20BANK%20LIMITED&city=MUMBAI&page=1&size=2
-    @GetMapping("/bank/branch")
+    // http://localhost:5000/api/v1/bank/branches?bankname=ABHYUDAYA%20COOPERATIVE%20BANK%20LIMITED&city=MUMBAI&page=1&size=2
+    @GetMapping("/bank/branches")
     public Page<BankBranches> getBranchesByCity(@RequestParam("bankname") String name, @RequestParam("city") String city, Pageable p) {
         try {
-            return bankService.getBranchesByCity(name.toUpperCase(), city.toUpperCase(), p);
+            return bankService.getPaginatedBranchesByCity(name.toUpperCase(), city.toUpperCase(), p);
         } catch (RuntimeException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
-    }
+     }
 
     // http://localhost:5000/api/v1/branch/ABHY0065002
     @GetMapping("/branch/{ifsc}")

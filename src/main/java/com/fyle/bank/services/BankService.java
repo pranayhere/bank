@@ -10,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface BankService {
     Branch getBranch(String ifsc);
-    Page<BankBranches> getBranchesByCity(String name, String city, Pageable p);
-    List<BankBranches> getBranchesByCity(String name, String city);
-    
+    Page<BankBranches> getPaginatedBranchesByCity(String name, String city, Pageable p);
+    List<BankBranches> getAllBranchesByCity(String name, String city);
 }
