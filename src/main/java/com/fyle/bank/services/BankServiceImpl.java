@@ -11,6 +11,8 @@ import com.fyle.bank.repositories.BankBranchesRepository;
 import com.fyle.bank.repositories.BranchRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,10 +32,19 @@ public class BankServiceImpl implements BankService {
         return branch.get();
     }
 
+    @Override
+    public Page<BankBranches> getBranchesByCity(@NotBlank String name, @NotBlank String city, Pageable pageable) {
+        Page<BankBranches> bankBranches = bankBranchesRepository.findAllByBankNameAndCity(name, city, pageable);
+
+        if (bankBranches.isEmpty())
+            throw new RuntimeException("No Branches for the Bank in the given city");
+        
+        return bankBranches;
+    }
 
     @Override
-    public List<BankBranches> getBranchesByCity(@NotBlank String name, @NotBlank String city) {
-        List<BankBranches> bankBranches = bankBranchesRepository.findByBankNameAndCity(name, city);
+    public List<BankBranches> getBranchesByCity(String name, String city) {
+        List<BankBranches> bankBranches = bankBranchesRepository.findAllByBankNameAndCity(name, city);
 
         if (bankBranches.isEmpty())
             throw new RuntimeException("No Branches for the Bank in the given city");

@@ -10,6 +10,8 @@ import com.fyle.bank.models.Branch;
 import com.fyle.bank.services.BankService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,20 +29,19 @@ public class BankController {
     @Autowired
     BankService bankService;
 
-    // http://localhost:8080/api/v1/bank/branch?bankname=ABHYUDAYA%20COOPERATIVE%20BANK%20LIMITED&city=MUMBAI
+    // http://localhost:5000/api/v1/bank/branch?bankname=ABHYUDAYA%20COOPERATIVE%20BANK%20LIMITED&city=MUMBAI&page=1&size=2
     @GetMapping("/bank/branch")
-    public List<BankBranches> getBranchesByCity(@RequestParam("bankname") String name, @RequestParam("city") String city) {
+    public Page<BankBranches> getBranchesByCity(@RequestParam("bankname") String name, @RequestParam("city") String city, Pageable p) {
         try {
-            return bankService.getBranchesByCity(name.toUpperCase(), city.toUpperCase());
+            return bankService.getBranchesByCity(name.toUpperCase(), city.toUpperCase(), p);
         } catch (RuntimeException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 
-    
-    // http://localhost:8080/api/v1/branch/ABHY00650028989898989
+    // http://localhost:5000/api/v1/branch/ABHY0065002
     @GetMapping("/branch/{ifsc}")
-    public Branch getBranch(@PathVariable("ifsc") @NotBlank @Size(max = 11) String ifsc) {
+    public Branch getBranch(@PathVariable("ifsc") @NotBlank @Size(min = 11, max = 11) String ifsc) {
         try {
             return bankService.getBranch(ifsc.toUpperCase());
         } catch (RuntimeException e) {
