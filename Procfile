@@ -1,1 +1,1 @@
-web: java -jar build/libs/heroku-gradle-spring-boot.jar
+web: java -jar build/libs/bank-0.0.1-SNAPSHOT.jar
