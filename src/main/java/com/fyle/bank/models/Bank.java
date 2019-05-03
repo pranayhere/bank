@@ -20,7 +20,7 @@ import lombok.Setter;
 @Table(name = "banks")
 public class Bank {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String name;
 
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = "bank")
